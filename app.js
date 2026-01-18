@@ -1,38 +1,32 @@
-fetch('./Quotebook.txt')
-  .then(response => {
-    if (!response.ok) throw new Error('HTTP error');
-    return response.text();
-  })
-  .then(text => {
-    const quotes = text
-      .split(/\n\s*\n/)
-      .map(q => q.trim())
-      .filter(Boolean);
+let allQuotes = [];
+let remainingQuotes = [];
 
-    if (quotes.length === 0) {
-      throw new Error('No quotes found');
-    }
+const quoteDiv = document.getElementById('quote');
+const nextBtn = document.getElementById('nextBtn');
 
-    let index = Math.floor(Math.random() * quotes.length);
-    const quoteEl = document.getElementById('quote');
-
-    function showQuote() {
-      quoteEl.textContent = quotes[index];
-    }
-
-    function nextQuote() {
-      index = (index + 1) % quotes.length;
-      showQuote();
-    }
-
-    // Show immediately on load / refresh
-    showQuote();
-
-    // Auto-change every 15 minutes (900,000 ms)
-    setInterval(nextQuote, 900000);
+// Load quotes from Quotebook.txt
+fetch('Quotebook.txt')
+  .then(response => response.text())
+  .then(data => {
+    allQuotes = data.split('\n').filter(q => q.trim() !== ''); // Remove empty lines
+    remainingQuotes = [...allQuotes];
+    quoteDiv.textContent = getNextQuote();
   })
   .catch(err => {
-    document.getElementById('quote').textContent =
-      'Error loading quote';
+    quoteDiv.textContent = "Failed to load quotes.";
     console.error(err);
   });
+
+function getNextQuote() {
+  if (remainingQuotes.length === 0) {
+    remainingQuotes = [...allQuotes]; // Reset after all quotes shown
+  }
+  const index = Math.floor(Math.random() * remainingQuotes.length);
+  const quote = remainingQuotes.splice(index, 1)[0];
+  return quote;
+}
+
+// Button click handler
+nextBtn.addEventListener('click', () => {
+  quoteDiv.textContent = getNextQuote();
+});
