@@ -14,29 +14,37 @@
   body {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* centers content vertically */
-    align-items: center;     /* centers content horizontally */
+    justify-content: space-between; /* separates top/middle/bottom */
+    align-items: center;
     padding: 20px;
     box-sizing: border-box;
   }
 
-  #quote {
-    font-size: 1.5em;
+  #quote-container {
+    display: flex;
+    flex: 1; /* take up remaining vertical space */
+    justify-content: center; /* vertical centering within container */
+    align-items: center;     /* horizontal centering */
     text-align: center;
-    margin-bottom: 40px; /* spacing between quote and button */
   }
 
-  button {
+  #quote {
+    font-size: 1.5em;
+    max-width: 90%;
+  }
+
+  #nextBtn {
     font-size: 1em;
     padding: 10px 20px;
-    position: fixed;
-    bottom: 40px; /* keeps button near bottom of screen */
+    margin-bottom: 40px; /* spacing from bottom */
   }
 </style>
 </head>
 <body>
 
-<div id="quote">Loading...</div>
+<div id="quote-container">
+  <div id="quote">Loading...</div>
+</div>
 <button id="nextBtn">Next Quote</button>
 
 <script src="app.js"></script>
