@@ -5,9 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Quote</title>
 <style>
-  body { font-family: sans-serif; padding: 40px; text-align: center; }
-  #quote { font-size: 1.5em; margin-bottom: 20px; }
-  button { font-size: 1em; padding: 10px 20px; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centers content vertically */
+    align-items: center;     /* centers content horizontally */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  #quote {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 40px; /* spacing between quote and button */
+  }
+
+  button {
+    font-size: 1em;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 40px; /* keeps button near bottom of screen */
+  }
 </style>
 </head>
 <body>
